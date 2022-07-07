@@ -1,7 +1,19 @@
 <template>
   <div class="index_container">
     <div class="user">
-      <button @click="$router.push('/login')">登录</button>
+      <el-dropdown v-if="userInfo">
+        <div class="user_avatar">
+          <img :src="userInfo.avatarUrl" alt="" />
+          <span>{{ userInfo.nickName }}</span>
+          <i class="el-icon-arrow-down" />
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>黄金糕</el-dropdown-item>
+          <el-dropdown-item>狮子头</el-dropdown-item>
+          <el-dropdown-item divided>退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <button @click="$router.push('/login')" v-else>登录</button>
     </div>
     <div class="logo">
       <img src="~@img/index/logo.png" />
@@ -20,7 +32,7 @@
           <p>如果你愿意，你也可以成为创作者，通过对音乐作品进行二次创作或为音</p>
           <p>乐人进行服务赚取真金白银。你的爱好也可以为你赚钱。</p>
         </div>
-        <button @click="register(1)" :class="{ 'is_disabled': false }" >{{ true ? '注册乐迷账号' : '我已经是乐迷啦' }}</button>
+        <button @click="register(1)" :class="{ 'is_disabled': !!userInfo }" >{{ !userInfo ? '注册乐迷账号' : '我已经是乐迷啦' }}</button>
       </div>
       <div class="register_item">
         <img src="~@img/index/register-2.png">
@@ -51,11 +63,10 @@
 </template>
 
 <script>
-import { addAuthRoute } from '@/router';
 export default {
   data() {
     return {
-
+      userInfo: this.$store.state.userInfo
     }
   },
   created() {
@@ -63,9 +74,12 @@ export default {
   },
   methods: {
     register(type) {
-      addAuthRoute(1)
 
-      this.$router.push('/identity/list')
+    },
+    loginOut() {
+      this.$message.success('退出成功');
+      this.$router.push('/login');
+      this.$store.commit('login_out');
     }
   }
 }
@@ -81,7 +95,7 @@ export default {
     top: 58px;
     right: 60px;
     z-index: 9;
-    button {
+    & > button {
       display: block;
       outline: none;
       width: 88px;
@@ -91,6 +105,18 @@ export default {
       border: 1px solid #2D2D2D;
       background: none;
       cursor: pointer;
+    }
+    &_avatar {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      img {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+      }
     }
   }
   .logo {
@@ -140,6 +166,7 @@ export default {
       }
       .title {
         font-size: 56px;
+        margin-top: 30px;
       }
       .introduce {
         p:not(:last-child) {
@@ -161,6 +188,10 @@ export default {
         outline: none;
         border: 0;
         cursor: pointer;
+        &.is_disabled {
+          pointer-events: none;
+          background: #ddd;
+        }
       }
     }
   }

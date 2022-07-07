@@ -20,6 +20,4 @@ export const addAuthRoute = (type) => {
   router.options.routes = [...routes, authRoute];
 }
 
-addAuthRoute(1);
-
 export default router;

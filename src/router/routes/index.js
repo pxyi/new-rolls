@@ -18,7 +18,7 @@ export default [
     path: '/regist-original',
     name: 'registOriginal',
     meta: { requiresAuth: true },
-    component: () => import('@/views/container/regist-original/index.vue')
+    component: () => import('@/views/regist-original/index.vue')
   },
   {
     path: '/',

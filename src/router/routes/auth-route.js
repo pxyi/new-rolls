@@ -82,10 +82,10 @@ const twoRoutes = [
 const threeRoutes = [];
 
 const routesMap = new Map([
-  [1, oneOrfourRoutes],
-  [2, twoRoutes],
-  [3, threeRoutes],
-  [4, oneOrfourRoutes],
+  ['1', oneOrfourRoutes],
+  ['2', twoRoutes],
+  ['3', threeRoutes],
+  ['4', oneOrfourRoutes],
 ])
 
 const getAuthRoute = (type) => ({
