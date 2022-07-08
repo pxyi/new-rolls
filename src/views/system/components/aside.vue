@@ -1,8 +1,8 @@
 <template>
   <div class="aside_container">
     <div class="user">
-      <img src="~@img/index/banner.png" alt="">
-      <h2>音乐创作者</h2>
+      <img :src="userInfo.signUrl" alt="">
+      <h2>{{ userInfo.signName }}</h2>
     </div>
     <ul class="menu">
       <li class="menu-item" v-for="item in dataset" :key="item.key" :class="{ 'is_current': item.show && item.children, 'is_active': $route.path.includes(item.key) }"> 
@@ -29,6 +29,7 @@
 export default {
   data() {
     return {
+      userInfo: this.$store.state.userInfo,
       dataset: []
     }
   },

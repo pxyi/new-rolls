@@ -4,17 +4,25 @@ Vue.use(Router);
 
 import routes from './routes';
 
-const router = new Router({
+
+const createRouter = () => new Router({
   routes
 });
+
+const resetRouter = () => {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher;
+}
+
+const router = createRouter();
 
 router.beforeEach((to, from, next) => {
   next();
 })
 
-
 import getAuthRoute from './routes/auth-route';
 export const addAuthRoute = (type) => {
+  resetRouter();
   let authRoute = getAuthRoute(type);
   router.addRoute(authRoute);
   router.options.routes = [...routes, authRoute];

@@ -2,13 +2,12 @@
   <div class="header_container">
     <div class="logo"><img src="~@img/index/logo.png" /></div>
     <div class="user">
-      <el-dropdown>
-        <img class="user_avatar" src="~@img/index/banner.png" alt="">
+      <el-dropdown @command="handle">
+        <img class="user_avatar" :src="userInfo.signUrl" alt="">
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>黄金糕</el-dropdown-item>
-          <el-dropdown-item>狮子头</el-dropdown-item>
-          <el-dropdown-item>螺蛳粉</el-dropdown-item>
-          <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+          <el-dropdown-item command="avatar">设置头像</el-dropdown-item>
+          <el-dropdown-item command="materials">编辑资料</el-dropdown-item>
+          <el-dropdown-item divided command="loginOut">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -17,7 +16,27 @@
 
 <script>
 export default {
-  
+  data() {
+    return {
+      userInfo: this.$store.state.userInfo,
+    }
+  },
+  methods: {
+    avatar() {
+      this.$router.push('/avatar')
+    },
+    materials() {
+      this.$router.push('/materials')
+    },
+    loginOut() {
+      this.$message.success('退出成功');
+      this.$router.push('/login');
+      this.$store.commit('login_out');
+    },
+    handle(type) {
+      this[type]()
+    }
+  }
 }
 </script>
 

@@ -81,7 +81,9 @@ export default {
       if (res.token) {
         this.$store.commit('set_token', res.token);
         this.$store.commit('set_user_info', res.rollUserVo);
-        res.rollUserVo.signUtype > 0 && addAuthRoute(res.rollUserVo.signUtype);
+        addAuthRoute(res.rollUserVo.signUtype);
+
+        console.log(this.$router.options)
         this.$router.push('/')
       }
     }

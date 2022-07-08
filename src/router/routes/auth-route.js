@@ -88,7 +88,7 @@ const routesMap = new Map([
   ['4', oneOrfourRoutes],
 ])
 
-const getAuthRoute = (type) => ({
+const getAuthRoute = (type) => type > 0 ? ({
   path: '/',
   name: 'system',
   meta: { requiresAuth: true },
@@ -113,8 +113,24 @@ const getAuthRoute = (type) => ({
         }
       ]
     },
+    {
+      path: 'materials',
+      name: 'materials',
+      hidden: true,
+      component: () => import('@/views/system/materials/index.vue'),
+    },
+    {
+      path: 'avatar',
+      name: 'avatar',
+      hidden: true,
+      component: () => import('@/views/system/avatar/index.vue'),
+    },
     ...routesMap.get(type)
   ]
+}) : ({
+    path: '/',
+    name: 'system',
+    redirect: '/index',
 })
 
 export default getAuthRoute;

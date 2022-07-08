@@ -3,7 +3,7 @@
     <aside><AsideComponent /></aside>
     <section>
       <header><HeaderComponent /></header>
-      <div id="breadcrumb"><BreadcrumbComponent /></div>
+      <BreadcrumbComponent />
       <main><MainComponent /></main>
     </section>
   </section>
@@ -44,15 +44,6 @@ export default {
   header {
     height: 64px;
     background: #fff;
-  }
-  #breadcrumb {
-    display: flex;
-    align-items: center;
-    height: 48px;
-    padding: 0 24px;
-    background: #fff;
-    border-radius: 8px;
-    margin: 12px 16px 0 16px;
   }
   main {
     flex: 1;

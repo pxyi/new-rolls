@@ -1,16 +1,16 @@
 <template>
   <div class="index_container">
     <div class="user">
-      <el-dropdown v-if="userInfo">
+      <el-dropdown v-if="userInfo" @command="handle">
         <div class="user_avatar">
           <img :src="userInfo.avatarUrl" alt="" />
           <span>{{ userInfo.nickName }}</span>
           <i class="el-icon-arrow-down" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>黄金糕</el-dropdown-item>
-          <el-dropdown-item>狮子头</el-dropdown-item>
-          <el-dropdown-item divided>退出登录</el-dropdown-item>
+          <el-dropdown-item command="avatar">设置头像</el-dropdown-item>
+          <el-dropdown-item command="materials">编辑资料</el-dropdown-item>
+          <el-dropdown-item divided command="loginOut">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <button @click="$router.push('/login')" v-else>登录</button>
@@ -76,10 +76,19 @@ export default {
     register(type) {
 
     },
+    avatar() {
+      this.$router.push('/avatar')
+    },
+    materials() {
+      this.$router.push('/materials')
+    },
     loginOut() {
       this.$message.success('退出成功');
       this.$router.push('/login');
       this.$store.commit('login_out');
+    },
+    handle(type) {
+      this[type]()
     }
   }
 }

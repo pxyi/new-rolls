@@ -15,13 +15,16 @@ export default [
     component: () => import('@/views/login/regist.vue')
   },
   {
-    path: '/regist-original',
-    name: 'registOriginal',
-    meta: { requiresAuth: true },
-    component: () => import('@/views/regist-original/index.vue')
+    path: '/error',
+    name: 'error',
+    component: () => import('@/views/error/index.vue')
   },
   {
     path: '/',
     redirect: '/index',
-  }
+  },
+  {
+    path: '*',
+    redirect: '/error'
+  },
 ]
